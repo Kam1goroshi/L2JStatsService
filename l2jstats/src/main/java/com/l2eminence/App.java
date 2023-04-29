@@ -4,11 +4,18 @@ import java.util.Properties;
 import java.io.InputStream;
 import java.sql.*;
 import org.json.JSONObject;
-import org.json.JSONException;
 
 public class App {
     public static void main(String[] args) {
-        System.out.println(getOnlineStatus().toString());
+        System.out.println(getImportantStatistics());
+    }
+
+    private static JSONObject getImportantStatistics(){
+        JSONObject json = new JSONObject();
+        getOnlineStatus(json);
+        getTop50Pvp(json);
+        getTop50PK(json);
+        return json;
     }
     /**
      * @return A connection with the db based on local.properties
@@ -45,24 +52,58 @@ public class App {
         return connection;
     }
 
-    private static JSONObject getOnlineStatus(){
-        int online = 0;
-        int offline = 0;
-        JSONObject json = new JSONObject();
+    private static void getTop50Pvp(JSONObject json) {
         try {
             Connection con = getConnection();
-            ResultSet replies = con.createStatement().executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=1");
-            replies.next(); //only 1 return value from COUNT()
-            json.put("online", replies.getInt(1));
+            Statement stmt = con.createStatement();
+            ResultSet replies = stmt.executeQuery("SELECT char_name, pvpkills FROM characters ORDER BY pvpkills LIMIT 50");
+            while (replies.next()) 
+                json.append("pvp", new String[] { replies.getString(1), replies.getString(2) });
             replies.close();
-            replies = con.createStatement().executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=0");
-            replies.next();
-            json.put("offline", replies.getInt(1));
+            stmt.close();
             con.close();
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
         }
-        return json;
+    }
+
+
+    private static void getTop50PK(JSONObject json) {
+        try {
+            Connection con = getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet replies = stmt.executeQuery("SELECT char_name, pvpkills FROM characters ORDER BY pkkills LIMIT 50");
+            while (replies.next()) 
+                json.append("pvp", new String[] { replies.getString(1), replies.getString(2) });
+            replies.close();
+            stmt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    private static void getOnlineStatus(JSONObject json) {
+        try {
+            Connection con = getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet replies = stmt.executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=1");
+            replies.next(); // only 1 return value from COUNT()
+            json.put("online", replies.getString(1));
+            stmt.close();
+            replies.close();
+            stmt = con.createStatement();         
+            replies = stmt.executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=0");
+            replies.next();
+            json.put("offline", replies.getString(1));
+            replies.close();
+            stmt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
 }
