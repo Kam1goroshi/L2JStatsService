@@ -17,6 +17,7 @@ public class App {
         getTop50Pk(json);
         return json;
     }
+
     /**
      * @return A connection with the db based on local.properties
      * @throws SQLException
