@@ -14,7 +14,7 @@ public class App {
         JSONObject json = new JSONObject();
         getOnlineStatus(json);
         getTop50Pvp(json);
-        getTop50PK(json);
+        getTop50Pk(json);
         return json;
     }
     /**
@@ -69,13 +69,13 @@ public class App {
     }
 
 
-    private static void getTop50PK(JSONObject json) {
+    private static void getTop50Pk(JSONObject json) {
         try {
             Connection con = getConnection();
             Statement stmt = con.createStatement();
             ResultSet replies = stmt.executeQuery("SELECT char_name, pvpkills FROM characters ORDER BY pkkills LIMIT 50");
             while (replies.next()) 
-                json.append("pvp", new String[] { replies.getString(1), replies.getString(2) });
+                json.append("pk", new String[] { replies.getString(1), replies.getString(2) });
             replies.close();
             stmt.close();
             con.close();
