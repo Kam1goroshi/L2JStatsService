@@ -10,19 +10,9 @@ import java.util.Properties;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.json.JSONObject;
 
 @RestController
-public class DbMessenger {
-    @RequestMapping("/importantStatistics")
-    public static String getImportantStatistics() {
-        JSONObject json = new JSONObject();
-        getOnlineStatus(json);
-        getTop50Pvp(json);
-        getTop50Pk(json);
-        return json.toString(0);
-    }
-
+public class GetController {
     /**
      * @return A connection with the db based on local.properties
      * @throws SQLException
@@ -58,14 +48,16 @@ public class DbMessenger {
         return connection;
     }
 
-    private static void getTop50Pvp(JSONObject json) {
+    @RequestMapping("/top100Pvp")
+    public String getTop100Pvp() {
+        StringBuilder sb = new StringBuilder();
         try {
             Connection con = getConnection();
             Statement stmt = con.createStatement();
             ResultSet replies = stmt
-                    .executeQuery("SELECT char_name, pvpkills FROM characters ORDER BY pvpkills LIMIT 50");
+                    .executeQuery("SELECT char_name, pvpkills FROM characters ORDER BY pvpkills LIMIT 100");
             while (replies.next())
-                json.append("pvp", new String[] { replies.getString(1), replies.getString(2) });
+                sb.append(replies.getString(1)).append(":").append(replies.getString(2)).append("\n");
             replies.close();
             stmt.close();
             con.close();
@@ -73,16 +65,19 @@ public class DbMessenger {
             e.printStackTrace();
             System.exit(1);
         }
+        return sb.toString();
     }
 
-    private static void getTop50Pk(JSONObject json) {
+    @RequestMapping("/top100Pk")
+    public String getTop100Pk() {
+        StringBuilder sb = new StringBuilder();
         try {
             Connection con = getConnection();
             Statement stmt = con.createStatement();
             ResultSet replies = stmt
-                    .executeQuery("SELECT char_name, pvpkills FROM characters ORDER BY pkkills LIMIT 50");
+                    .executeQuery("SELECT char_name, pvpkills FROM characters ORDER BY pkkills LIMIT 100");
             while (replies.next())
-                json.append("pk", new String[] { replies.getString(1), replies.getString(2) });
+                sb.append(replies.getString(1)).append(":").append(replies.getString(2)).append("\n");
             replies.close();
             stmt.close();
             con.close();
@@ -90,21 +85,17 @@ public class DbMessenger {
             e.printStackTrace();
             System.exit(1);
         }
+        return sb.toString();
     }
-
-    private static void getOnlineStatus(JSONObject json) {
+    @RequestMapping("/online")
+    private static String getOnlineStatus() {
+        StringBuilder sb = new StringBuilder();
         try {
             Connection con = getConnection();
             Statement stmt = con.createStatement();
             ResultSet replies = stmt.executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=1");
             replies.next(); // only 1 return value from COUNT()
-            json.put("online", replies.getString(1));
-            stmt.close();
-            replies.close();
-            stmt = con.createStatement();
-            replies = stmt.executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=0");
-            replies.next();
-            json.put("offline", replies.getString(1));
+            sb.append("online:").append(replies.getString(1)).append("\n");
             replies.close();
             stmt.close();
             con.close();
@@ -112,5 +103,26 @@ public class DbMessenger {
             e.printStackTrace();
             System.exit(1);
         }
+        return sb.toString();
     }
+
+    @RequestMapping("/offline")
+    private static String getOfflineStatus() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            Connection con = getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet replies = stmt.executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=0");
+            replies.next(); // only 1 return value from COUNT()
+            sb.append("offline:").append(replies.getString(1)).append("\n");
+            replies.close();
+            stmt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        return sb.toString();
+    }
+
 }
