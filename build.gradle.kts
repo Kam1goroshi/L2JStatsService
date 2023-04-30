@@ -28,8 +28,7 @@ sourceSets {
 }
 
 dependencies {
-    implementation("org.mariadb.jdbc:mariadb-java-client:2.7.4")
-    implementation("org.json:json:20210307")
+    runtimeOnly("org.mariadb.jdbc:mariadb-java-client:2.7.4")
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
 }
 
