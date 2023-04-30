@@ -6,7 +6,6 @@
  */
 plugins {
     application 
-    id("com.github.johnrengelman.shadow") version "7.1.0"
     id("org.springframework.boot") version "3.0.6"
     id("io.spring.dependency-management") version "1.1.0"
 }
@@ -15,17 +14,17 @@ repositories {
     mavenCentral() 
 }
 
-sourceSets {
-    main {
-        java {
-            srcDir("src/main/java")
-            include("**/*.java")
-        }
-        resources {
-            srcDirs("src/main/resources")
-        }
-    }
-}
+// sourceSets {
+//     main {
+//         java {
+//             srcDir("src/main/java")
+//             include("**/*.java")
+//         }
+//         resources {
+//             srcDirs("src/main/resources")
+//         }
+//     }
+// }
 
 dependencies {
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client:2.7.4")
@@ -34,9 +33,4 @@ dependencies {
 
 application {
     mainClass.set("com.l2eminence.App") 
-}
-
-// Shadow task depends on Jar task, so these configs are reflected for Shadow as well
-tasks.jar {
-    manifest.attributes["Main-Class"] = "org.example.MainKt"
 }
