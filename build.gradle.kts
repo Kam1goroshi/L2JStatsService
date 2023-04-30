@@ -13,9 +13,24 @@ repositories {
     mavenCentral() 
 }
 
+sourceSets {
+    main {
+        java {
+            srcDir("src/main/java")
+            include("**/*.java")
+        }
+        resources {
+            srcDirs("src/main/resources")
+        }
+    }
+}
+
 dependencies {
     implementation("org.mariadb.jdbc:mariadb-java-client:2.7.4")
     implementation("org.json:json:20210307")
+    // https://mvnrepository.com/artifact/io.netty/netty-all
+    implementation("io.netty:netty-all:4.1.92.Final")
+
 }
 
 application {
