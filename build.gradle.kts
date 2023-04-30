@@ -6,6 +6,7 @@
  */
 plugins {
     application 
+    id("com.github.johnrengelman.shadow") version "7.1.0"
 }
 
 repositories {
@@ -21,8 +22,7 @@ application {
     mainClass.set("com.l2eminence.App") 
 }
 
+// Shadow task depends on Jar task, so these configs are reflected for Shadow as well
 tasks.jar {
-    manifest {
-        attributes["Main-Class"] = "com.l2eminence.App"
-    }
+    manifest.attributes["Main-Class"] = "org.example.MainKt"
 }
