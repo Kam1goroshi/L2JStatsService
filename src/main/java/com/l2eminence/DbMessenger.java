@@ -8,15 +8,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.json.JSONObject;
 
+@RestController
 public class DbMessenger {
-    public static JSONObject getImportantStatistics() {
+    @RequestMapping("/importantStatistics")
+    public static String getImportantStatistics() {
         JSONObject json = new JSONObject();
         getOnlineStatus(json);
         getTop50Pvp(json);
         getTop50Pk(json);
-        return json;
+        return json.toString(0);
     }
 
     /**

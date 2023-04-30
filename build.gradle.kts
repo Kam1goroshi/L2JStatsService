@@ -7,6 +7,8 @@
 plugins {
     application 
     id("com.github.johnrengelman.shadow") version "7.1.0"
+    id("org.springframework.boot") version "3.0.6"
+    id("io.spring.dependency-management") version "1.1.0"
 }
 
 repositories {
@@ -28,9 +30,7 @@ sourceSets {
 dependencies {
     implementation("org.mariadb.jdbc:mariadb-java-client:2.7.4")
     implementation("org.json:json:20210307")
-    // https://mvnrepository.com/artifact/io.netty/netty-all
-    implementation("io.netty:netty-all:4.1.92.Final")
-
+    implementation("org.springframework.boot:spring-boot-starter-data-rest")
 }
 
 application {

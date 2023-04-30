@@ -1,12 +1,12 @@
 package com.l2eminence;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
 public class App {
     public static void main(String[] args) {
-        MyServer server = new MyServer(7777);
-        try{
-        server.run();
-        }catch(Exception e){
-            e.printStackTrace();
-            System.exit(0);
-        }
+        DbMessenger messenger = new DbMessenger();
+        SpringApplication.run(App.class, args);
     }
 }
