@@ -4,3 +4,25 @@
  * This is a general purpose Gradle build.
  * Learn more about Gradle by exploring our samples at https://docs.gradle.org/8.1.1/samples
  */
+plugins {
+    application 
+}
+
+repositories {
+    mavenCentral() 
+}
+
+dependencies {
+    implementation("org.mariadb.jdbc:mariadb-java-client:2.7.4")
+    implementation("org.json:json:20210307")
+}
+
+application {
+    mainClass.set("com.l2eminence.App") 
+}
+
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "com.l2eminence.App"
+    }
+}

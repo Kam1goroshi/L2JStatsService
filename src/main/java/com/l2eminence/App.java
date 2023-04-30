@@ -25,7 +25,7 @@ public class App {
     private static Connection getConnection() throws SQLException {
         Connection connection = null;
         InputStream input = Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("resources/properties/database.properties");
+                .getResourceAsStream("properties/database.properties");
         Properties db_properties = new Properties();
         try {
             db_properties.load(input);
