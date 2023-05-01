@@ -97,8 +97,9 @@
 ### Built With
 
 * [![Java]][Java-url]
-* [![Gradle]][Gradle-url]]
-* [![Spring]][Spring-url]]
+* [![Gradle]][Gradle-url]
+* [![Kotlin]][Kotlin-url]
+* [![Spring]][Spring-url]
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
