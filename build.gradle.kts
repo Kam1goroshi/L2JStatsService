@@ -17,7 +17,8 @@ repositories {
 dependencies {
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client:2.7.4")
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
-    implementation("com.github.ben-manes.caffeine:caffeine:3.1.6") // https://mvnrepository.com/artifact/com.github.ben-manes.caffeine/caffeine
+    //implementation("org.json:json:20220924") // https://mvnrepository.com/artifact/org.json/json
+
 }
 application {
     mainClass.set("com.l2eminence.App") 

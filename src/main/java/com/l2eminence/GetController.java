@@ -7,9 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 
 @RestController
 public class GetController {
@@ -54,7 +56,6 @@ public class GetController {
             updateTop100Pvp(con);
             updateTop100Pk(con);
             updateOnline(con);
-            updateOffline(con);
             con.close();
         } catch (Exception e) {
             System.err.println("Failed to update cache!");
@@ -72,13 +73,16 @@ public class GetController {
     }
 
     private static void updateTop100Pvp(Connection con) throws Exception {
-        StringBuilder sb = new StringBuilder();
+        JSONArray json = new JSONArray();
         Statement stmt = con.createStatement();
         ResultSet replies = stmt
                 .executeQuery("SELECT char_name, pvpkills FROM characters ORDER BY pvpkills LIMIT 100");
-        while (replies.next())
-            sb.append(replies.getString(1)).append(":").append(replies.getString(2)).append("\n");
-        HorribleCache.putValue("top100Pvp", sb.toString());
+        while (replies.next()) {
+            JSONObject temp = new JSONObject();
+            temp.put(replies.getString(1), replies.getString(2));
+            json.add(0, temp);
+        }
+        HorribleCache.putValue("top100Pvp", json.toString());
         replies.close();
         stmt.close();
     }
@@ -92,13 +96,16 @@ public class GetController {
     }
 
     private static void updateTop100Pk(Connection con) throws Exception {
-        StringBuilder sb = new StringBuilder();
+        JSONArray json = new JSONArray();
         Statement stmt = con.createStatement();
         ResultSet replies = stmt
                 .executeQuery("SELECT char_name, pvpkills FROM characters ORDER BY pkkills LIMIT 100");
-        while (replies.next())
-            sb.append(replies.getString(1)).append(":").append(replies.getString(2)).append("\n");
-        HorribleCache.putValue("top100Pk", sb.toString());
+        while (replies.next()) {
+            JSONObject temp = new JSONObject();
+            temp.put(replies.getString(1), replies.getString(2));
+            json.add(0, temp);
+        }
+        HorribleCache.putValue("top100Pk", json.toString());
         replies.close();
         stmt.close();
     }
@@ -112,35 +119,19 @@ public class GetController {
     }
 
     private static void updateOnline(Connection con) throws Exception {
-        StringBuilder sb = new StringBuilder();
-
+        JSONObject json = new JSONObject();
         Statement stmt = con.createStatement();
         ResultSet replies = stmt.executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=1");
         replies.next(); // only 1 return value from COUNT()
-        sb.append("online:").append(replies.getString(1)).append("\n");
-        HorribleCache.putValue("online", sb.toString());
+        json.put("online",replies.getString(1));
         replies.close();
         stmt.close();
-    }
-
-    @RequestMapping("/offline")
-    private String getOfflineStatus() {
-        if (HorribleCache.shouldUpdateCache()) {
-            updateCache();
-        }
-        return HorribleCache.getValue("offline");
-    }
-
-    private static void updateOffline(Connection con) throws Exception {
-        StringBuilder sb = new StringBuilder();
-
-        Statement stmt = con.createStatement();
-        ResultSet replies = stmt.executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=0");
+        stmt = con.createStatement();
+        replies = stmt.executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=0");
         replies.next(); // only 1 return value from COUNT()
-        sb.append("offline:").append(replies.getString(1)).append("\n");
-        HorribleCache.putValue("offline", sb.toString());
+        json.put("offline",replies.getString(1));
+        HorribleCache.putValue("online", json.toString());
         replies.close();
         stmt.close();
     }
-
 }
