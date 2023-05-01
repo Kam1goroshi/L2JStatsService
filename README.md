@@ -119,13 +119,14 @@ To get a local copy up and running follow these simple example steps.
 Install from source code:
 1. Clone the repo
    ```
-   sh git clone git@github.com:Kam1goroshi/L2JStatsService.git
+   git clone git@github.com:Kam1goroshi/L2JStatsService.git
    ```
 2. Navigate to the root project directory
    ```
    cd L2JStatsService
    ```
 3. copy src\main\resources\properties\local.properties to src\main\resources\properties\database.properties
+   
    Linux:
    ```
    cp src/main/resources/properties/local.properties src/main/resources/properties/database.properties
@@ -137,6 +138,7 @@ Install from source code:
 4. Edit database.properties to match the running server's properties
    (optional) If you need to change the default port which is 8080 edit src/main/resources/application.properties
 5. Run the appropriate gradle wrapper to generate the project's jar file. (you might need to change the file's permission to make it executable)
+   
    Linux:
    ```
    ./gradle build
