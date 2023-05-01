@@ -121,13 +121,13 @@ public class GetController {
     private static void updateOnline(Connection con) throws Exception {
         JSONObject json = new JSONObject();
         Statement stmt = con.createStatement();
-        ResultSet replies = stmt.executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=1");
+        ResultSet replies = stmt.executeQuery("SELECT COUNT(*) FROM characters WHERE online=1");
         replies.next(); // only 1 return value from COUNT()
         json.put("online",replies.getString(1));
         replies.close();
         stmt.close();
         stmt = con.createStatement();
-        replies = stmt.executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=0");
+        replies = stmt.executeQuery("SELECT COUNT(*) FROM characters WHERE online=0");
         replies.next(); // only 1 return value from COUNT()
         json.put("offline",replies.getString(1));
         HorribleCache.putValue("online", json.toString());
