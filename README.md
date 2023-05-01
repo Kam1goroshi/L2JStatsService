@@ -22,7 +22,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![GPLv3][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
@@ -150,7 +150,15 @@ Install from source code:
    ```
    ./gradlew build
    ```
-
+6. Run the service
+   Windows:
+   ```
+    java -jar build\libs\L2JStatsService.jar
+   ```
+   Linux:
+   ```
+    java -jar build/libs/L2JStatsService.jar
+   ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -239,7 +247,7 @@ Project Link: [https://github.com/Kam1goroshi/L2JStatsService](https://github.co
 [stars-url]: https://github.com/github_username/repo_name/stargazers
 [issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
 [issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/Kam1goroshi/L2JStatsService?style=plastic
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
