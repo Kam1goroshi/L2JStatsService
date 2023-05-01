@@ -116,11 +116,11 @@ Install from source code:
    
    Linux:
    ```
-   ./gradle build
+   ./gradlew build
    ```
    Windows:
    ```
-   ./gradlew build
+   ./gradlew.bat build
    ```
 6. Run the service
    Windows:
