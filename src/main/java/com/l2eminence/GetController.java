@@ -48,81 +48,99 @@ public class GetController {
         return connection;
     }
 
-    @RequestMapping("/top100Pvp")
-    public String getTop100Pvp() {
-        StringBuilder sb = new StringBuilder();
+    private synchronized static void updateCache() {
         try {
             Connection con = getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet replies = stmt
-                    .executeQuery("SELECT char_name, pvpkills FROM characters ORDER BY pvpkills LIMIT 100");
-            while (replies.next())
-                sb.append(replies.getString(1)).append(":").append(replies.getString(2)).append("\n");
-            replies.close();
-            stmt.close();
+            updateTop100Pvp(con);
+            updateTop100Pk(con);
+            updateOnline(con);
+            updateOffline(con);
             con.close();
         } catch (Exception e) {
+            System.err.println("Failed to update cache!");
+            HorribleCache.resetTimeStamp();
             e.printStackTrace();
-            System.exit(1);
         }
-        return sb.toString();
+    }
+
+    @RequestMapping("/top100Pvp")
+    public String getTop100Pvp() {
+        if (HorribleCache.shouldUpdateCache()) {
+            updateCache();
+        }
+        return HorribleCache.getValue("top100Pvp");
+    }
+
+    private static void updateTop100Pvp(Connection con) throws Exception {
+        StringBuilder sb = new StringBuilder();
+        Statement stmt = con.createStatement();
+        ResultSet replies = stmt
+                .executeQuery("SELECT char_name, pvpkills FROM characters ORDER BY pvpkills LIMIT 100");
+        while (replies.next())
+            sb.append(replies.getString(1)).append(":").append(replies.getString(2)).append("\n");
+        HorribleCache.putValue("top100Pvp", sb.toString());
+        replies.close();
+        stmt.close();
     }
 
     @RequestMapping("/top100Pk")
     public String getTop100Pk() {
-        StringBuilder sb = new StringBuilder();
-        try {
-            Connection con = getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet replies = stmt
-                    .executeQuery("SELECT char_name, pvpkills FROM characters ORDER BY pkkills LIMIT 100");
-            while (replies.next())
-                sb.append(replies.getString(1)).append(":").append(replies.getString(2)).append("\n");
-            replies.close();
-            stmt.close();
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
+        if (HorribleCache.shouldUpdateCache()) {
+            updateCache();
         }
-        return sb.toString();
+        return HorribleCache.getValue("top100Pk");
     }
-    @RequestMapping("/online")
-    private static String getOnlineStatus() {
+
+    private static void updateTop100Pk(Connection con) throws Exception {
         StringBuilder sb = new StringBuilder();
-        try {
-            Connection con = getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet replies = stmt.executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=1");
-            replies.next(); // only 1 return value from COUNT()
-            sb.append("online:").append(replies.getString(1)).append("\n");
-            replies.close();
-            stmt.close();
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
+        Statement stmt = con.createStatement();
+        ResultSet replies = stmt
+                .executeQuery("SELECT char_name, pvpkills FROM characters ORDER BY pkkills LIMIT 100");
+        while (replies.next())
+            sb.append(replies.getString(1)).append(":").append(replies.getString(2)).append("\n");
+        HorribleCache.putValue("top100Pk", sb.toString());
+        replies.close();
+        stmt.close();
+    }
+
+    @RequestMapping("/online")
+    private String getOnlineStatus() {
+        if (HorribleCache.shouldUpdateCache()) {
+            updateCache();
         }
-        return sb.toString();
+        return HorribleCache.getValue("online");
+    }
+
+    private static void updateOnline(Connection con) throws Exception {
+        StringBuilder sb = new StringBuilder();
+
+        Statement stmt = con.createStatement();
+        ResultSet replies = stmt.executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=1");
+        replies.next(); // only 1 return value from COUNT()
+        sb.append("online:").append(replies.getString(1)).append("\n");
+        HorribleCache.putValue("online", sb.toString());
+        replies.close();
+        stmt.close();
     }
 
     @RequestMapping("/offline")
-    private static String getOfflineStatus() {
-        StringBuilder sb = new StringBuilder();
-        try {
-            Connection con = getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet replies = stmt.executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=0");
-            replies.next(); // only 1 return value from COUNT()
-            sb.append("offline:").append(replies.getString(1)).append("\n");
-            replies.close();
-            stmt.close();
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
+    private String getOfflineStatus() {
+        if (HorribleCache.shouldUpdateCache()) {
+            updateCache();
         }
-        return sb.toString();
+        return HorribleCache.getValue("offline");
+    }
+
+    private static void updateOffline(Connection con) throws Exception {
+        StringBuilder sb = new StringBuilder();
+
+        Statement stmt = con.createStatement();
+        ResultSet replies = stmt.executeQuery("SELECT COUNT(*) FROM CHARACTERS WHERE online=0");
+        replies.next(); // only 1 return value from COUNT()
+        sb.append("offline:").append(replies.getString(1)).append("\n");
+        HorribleCache.putValue("offline", sb.toString());
+        replies.close();
+        stmt.close();
     }
 
 }
