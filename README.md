@@ -95,11 +95,10 @@
 
 
 ### Built With
-<nav>
+
 * [![Java]][Java-url]
-* [![Gradle]][Gradle-url]
-* [![Spring]][Spring-url]
-</nav>
+* [![Gradle]][Gradle-url]]
+* [![Spring]][Spring-url]]
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
