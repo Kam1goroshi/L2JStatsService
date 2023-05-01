@@ -30,13 +30,15 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <!-- <a href="https://github.com/github_username/repo_name">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
+  </a> -->
 
-<h3 align="center">project_title</h3>
-
-  <p align="center">
+<h3 align="center">L2J Stats Service</h3>
+<p>A simple service that exposes json strings from l2jgame database to ip:port/info</p>
+<p>For example, one could get from localhost:8080/online a json that contains how many players are online/offline</p>
+<p>This is particularly useful as it is an intermidiate layer bettween the website and the server's database providing an additional layer of security. It's also faster as it is caching things in a ConcurrentHashMap
+  <!-- <p align="center">
     project_description
     <br />
     <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
@@ -47,7 +49,7 @@
     <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
     ·
     <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
-  </p>
+  </p> -->
 </div>
 
 
