@@ -231,11 +231,11 @@ Project Link: [https://github.com/Kam1goroshi/L2JStatsService](https://github.co
 
 [license-shield]: https://img.shields.io/github/license/Kam1goroshi/L2JStatsService?style=plastic
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
-[Java]: https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white
+[Java]: https://img.shields.io/badge/Java-darkred?style=for-the-badge&logo=openjdk
 [Java-url]: https://www.java.com/
-[Gradle]: https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white
-[Gradle-url]: https://www.java.com/
-[Kotlin]: https://img.shields.io/badge/Kotlin-0095D5?&style=for-the-badge&logo=kotlin&logoColor=white
+[Gradle]: https://img.shields.io/badge/Gradle-darkgreen?style=for-the-badge&logo=gradle
+[Gradle-url]: https://gradle.org/
+[Kotlin]: https://img.shields.io/badge/Kotlin-grey?style=for-the-badge&logo=kotlin
 [Kotlin-url]: https://kotlinlang.org/
 [Spring]: https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white
 [Spring-url]: https://spring.io/
