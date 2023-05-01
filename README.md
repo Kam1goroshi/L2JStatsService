@@ -1,28 +1,4 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-<!-- [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![LinkedIn][linkedin-shield]][linkedin-url] -->
 [![GPLv3][license-shield]][license-url]
 
 
@@ -88,7 +64,6 @@
 <p>For example, one could get from localhost:8080/online a json that contains how many players are online/offline</p>
 <p>This is particularly useful as it is an intermidiate layer bettween the website and the server's database providing an additional layer of security. It's also faster as it is caching things in a ConcurrentHashMap
 
-<!-- Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description` -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -136,7 +111,7 @@ Install from source code:
    copy src\main\resources\properties\local.properties src\main\resources\properties\database.properties
    ```
 4. Edit database.properties to match the running server's properties
-   (optional) If you need to change the default port which is 8080 edit src/main/resources/application.properties
+   (optional) If you need to change the default port which is 8080 edit src/main/resources/application.properties.
 5. Run the appropriate gradle wrapper to generate the project's jar file. (you might need to change the file's permission to make it executable)
    
    Linux:
@@ -169,20 +144,6 @@ Use this space to show useful examples of how a project can be used. Additional 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
-<!-- ## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
@@ -231,6 +192,15 @@ Project Link: [https://github.com/Kam1goroshi/L2JStatsService](https://github.co
 * This project exists because of [L2j-server](https://www.l2jserver.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+## Donations
+
+If you like this project and feel like donating feel free to buy me a coffee
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/L2Eminence)
+
+<h6>*Disclaimer, this is a free project. You are not obliged to donate to use this program in any way.<h6>
 
 [license-shield]: https://img.shields.io/github/license/Kam1goroshi/L2JStatsService?style=plastic
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
