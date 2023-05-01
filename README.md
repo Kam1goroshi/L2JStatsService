@@ -197,7 +197,8 @@ Project Link: [https://github.com/Kam1goroshi/L2JStatsService](https://github.co
 
 ## Donations
 
-If you like this project and feel like donating feel free to buy me a coffee
+<p>If you like this project and feel like donating feel free to buy me a coffee<p>
+
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/L2Eminence)
 
 <h6>*Disclaimer, this is a free project. You are not obliged to donate to use this program in any way.<h6>
