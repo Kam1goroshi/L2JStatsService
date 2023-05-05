@@ -56,6 +56,7 @@ public class GetController {
             updateTop100Pvp(con);
             updateTop100Pk(con);
             updateOnline(con);
+            updateTop100Clans(con);
             con.close();
         } catch (Exception e) {
             System.err.println("Failed to update cache!");
@@ -131,6 +132,29 @@ public class GetController {
         replies.next(); // only 1 return value from COUNT()
         json.put("offline",replies.getString(1));
         HorribleCache.putValue("online", json.toString());
+        replies.close();
+        stmt.close();
+    }
+
+    @RequestMapping("/top100Clans")
+    private String getTop100Clans() {
+        if (HorribleCache.shouldUpdateCache()) {
+            updateCache();
+        }
+        return HorribleCache.getValue("top100Clans");
+    }
+
+    private static void updateTop100Clans(Connection con) throws Exception {
+        JSONArray json = new JSONArray();
+        Statement stmt = con.createStatement();
+        ResultSet replies = stmt
+                .executeQuery("SELECT clan_name, reputation_score FROM clan_data ORDER BY reputation_score LIMIT 100");
+        while (replies.next()) {
+            JSONObject temp = new JSONObject();
+            temp.put(replies.getString(1), replies.getString(2));
+            json.add(0, temp);
+        }
+        HorribleCache.putValue("top100Clans", json.toString());
         replies.close();
         stmt.close();
     }
