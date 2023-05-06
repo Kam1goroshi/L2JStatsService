@@ -100,7 +100,7 @@ public class GetController {
         JSONArray json = new JSONArray();
         Statement stmt = con.createStatement();
         ResultSet replies = stmt
-                .executeQuery("SELECT char_name, pvpkills FROM characters ORDER BY pkkills LIMIT 100");
+                .executeQuery("SELECT char_name, pkkills FROM characters ORDER BY pkkills LIMIT 100");
         while (replies.next()) {
             JSONObject temp = new JSONObject();
             temp.put(replies.getString(1), replies.getString(2));
